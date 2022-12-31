@@ -5,10 +5,26 @@
 #include "Account.h"
 #include <cstddef>
 
+#include <exception>
+#include <string>
+
 using namespace std;
 
 #ifndef ATMCASESTUDY_BANKDATABASE_H
 #define ATMCASESTUDY_BANKDATABASE_H
+
+class AccountNotFoundException : public std::exception {
+public:
+  explicit AccountNotFoundException(int account_id) :
+    account_id_(account_id) { }
+
+  const char* what() const noexcept override {
+    return ("Account not found: " + std::to_string(account_id_)).c_str();
+  }
+
+private:
+  int account_id_;
+};
 
 
 class BankDatabase {

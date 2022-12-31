@@ -42,14 +42,12 @@ public:
 private:
     Account getAccount(int accountNumber){
 //        loop through accounts searching for matching account number
-
-        for(Account currentAccount : accounts){
+        for(Account currentAccount : accounts)
 //    return current account if matched found
-            if(currentAccount.getAccountNumber() == accountNumber){
+            if(currentAccount.getAccountNumber() == accountNumber)
                 return currentAccount;
-            }
-        } // end for
-        return NULL;
+        // end for
+        throw AccountNotFoundException(accountNumber);
     }
 
 //    determine whether user specified account number and pin match those of an account in the db
@@ -59,9 +57,10 @@ public:
         Account userAccount = getAccount(userAccountNumber);
 
 //        if account exists, return result of the account method validatePIN
-        if(userAccount != NULL){
+        try {
             return userAccount.validatePIN(userPIN);
-        }else{
+        }
+        catch (const std::exception&) {
             return false;
         }
     }

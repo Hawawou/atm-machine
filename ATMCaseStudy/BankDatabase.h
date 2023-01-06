@@ -39,7 +39,7 @@ public:
     }
 
 //    retrieve account containing specific account number
-private:
+public:
     Account getAccount(int accountNumber){
 //        loop through accounts searching for matching account number
         for(Account currentAccount : accounts)

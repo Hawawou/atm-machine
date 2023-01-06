@@ -23,7 +23,7 @@ public:
     void dispenseCash(int amount) {
         int billsRequired = amount / 20; // number of $20 bills required
         count -= billsRequired;// update the count of bills
-        std::cout << count
+        std::cout << count;
     }
 
     // indicates whether cash dispenser can dispense desired amount

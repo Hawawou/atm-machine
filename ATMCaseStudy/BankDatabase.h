@@ -3,7 +3,7 @@
 //
 #include "vector"
 #include "Account.h"
-#include <cstddef>
+//#include <cstddef>
 
 #include <exception>
 #include <string>
@@ -13,6 +13,7 @@ using namespace std;
 #ifndef ATMCASESTUDY_BANKDATABASE_H
 #define ATMCASESTUDY_BANKDATABASE_H
 
+//error handling
 class AccountNotFoundException : public std::exception {
 public:
   explicit AccountNotFoundException(int account_id) :
@@ -26,7 +27,7 @@ private:
   int account_id_;
 };
 
-
+//Represents the bank account information database
 class BankDatabase {
 private:
     vector <Account> accounts;
@@ -39,7 +40,7 @@ public:
     }
 
 //    retrieve account containing specific account number
-public:
+private:
     Account getAccount(int accountNumber){
 //        loop through accounts searching for matching account number
         for(Account currentAccount : accounts)
@@ -47,6 +48,7 @@ public:
             if(currentAccount.getAccountNumber() == accountNumber)
                 return currentAccount;
         // end for
+//        throw error if no matching account was found
         throw AccountNotFoundException(accountNumber);
     }
 
@@ -80,6 +82,12 @@ public:
 //    credit an amount to account with specified account number
 public:
     void credit(int userAccountNumber, double amount){
+        getAccount(userAccountNumber).debit(amount);
+    }
+
+//debit amount from account with specified account number
+public:
+    void debit(int userAccountNumber, double amount){
         getAccount(userAccountNumber).debit(amount);
     }
 };
